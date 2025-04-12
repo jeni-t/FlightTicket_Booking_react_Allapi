@@ -505,7 +505,7 @@ const handleSelectOrigin = (code) => {
 
   return (
     <div>
-       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/flight-ticket-fare.jpg')"}}>
+       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://blog.air.irctc.co.in/wp-content/uploads/2021/03/flight-ticket-fare.jpg')"}}>
       <div className="absolute inset-0 bg-blak bg-opacity-40">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-opacity-80 p-6 rounded-lg shadow-lg w-full max-w-2xl">
@@ -606,7 +606,7 @@ const handleSelectOrigin = (code) => {
 {selectedFlight && (
     <div className="relative mt-4">
         {/* Background Image with Opacity */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/image-flight.jpeg')" }}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://t4.ftcdn.net/jpg/11/90/96/89/360_F_1190968902_G2EHiiu0rkRbTdZHQxRZ9Kk2EoHizyCD.jpg')" }}></div>
 
         {/* Booking Form Container */}
         <div className="relative z-10 bg-opacity-80 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
