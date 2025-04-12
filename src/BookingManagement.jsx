@@ -294,48 +294,54 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     const handleDownloadPDF = async (bookingId) => {
         const original = document.getElementById(`booking-${bookingId}`);
         if (!original) return;
-      
-        // Clone the node to override styles
+    
         const clone = original.cloneNode(true);
-      
-        // ✅ Clean inline style to override problematic styles
+    
+        // Remove Tailwind classes to avoid computed gradients (like oklch)
+        clone.className = "";
         clone.style.backgroundColor = "#ffffff";
         clone.style.color = "#000000";
         clone.style.padding = "20px";
         clone.style.fontFamily = "Arial, sans-serif";
-      
-        // Remove all computed styles that might use oklch
-        const all = clone.getElementsByTagName("*");
-        for (let i = 0; i < all.length; i++) {
-          all[i].style.backgroundColor = "#ffffff";
-          all[i].style.color = "#000000";
-          all[i].style.borderColor = "#000000";
-        }
-      
-        // Create a container div (not attached to layout) for rendering
+        clone.style.border = "1px solid #ccc";
+        clone.style.borderRadius = "8px";
+    
+        const elements = clone.querySelectorAll("*");
+        elements.forEach(el => {
+            el.className = "";
+            el.style.backgroundColor = "#ffffff";
+            el.style.color = "#000000";
+            el.style.borderColor = "#000000";
+        });
+    
         const container = document.createElement("div");
         container.style.position = "fixed";
         container.style.left = "-9999px";
         container.appendChild(clone);
         document.body.appendChild(container);
-      
+    
         try {
-          const canvas = await html2canvas(clone);
-          const imgData = canvas.toDataURL("image/png");
-      
-          const pdf = new jsPDF();
-          const width = pdf.internal.pageSize.getWidth();
-          const height = (canvas.height * width) / canvas.width;
-      
-          pdf.addImage(imgData, "PNG", 0, 0, width, height);
-          pdf.save(`booking-${bookingId}.pdf`);
+            const canvas = await html2canvas(clone, {
+                useCORS: true,
+                backgroundColor: "#fff",
+                scale: 2,
+            });
+            const imgData = canvas.toDataURL("image/png");
+    
+            const pdf = new jsPDF();
+            const width = pdf.internal.pageSize.getWidth();
+            const height = (canvas.height * width) / canvas.width;
+    
+            pdf.addImage(imgData, "PNG", 0, 0, width, height);
+            pdf.save(`booking-${bookingId}.pdf`);
         } catch (error) {
-          console.error("❌ Error generating PDF:", error);
+            console.error("❌ Error generating PDF:", error);
+            alert("Error generating PDF.");
         }
-      
-        // Clean up the temporary element
+    
         document.body.removeChild(container);
-      };
+    };
+    
 
     // Print booking confirmation
     const printBooking = (booking) => {
@@ -381,15 +387,20 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
                         
                         // style={{ backgroundImage: "url('/booking.jpg')" }}
 >
-    <div className="bg-gradient-to-br from-blue-100">
-                            <p className="py-6 text-2xl"><strong><center>Booking Reference:</center></strong> {booking.bookingReference}</p>
-                            <p className="px-6 text-lg"><strong>Flight:</strong> {booking.flightNumber}</p>
-                            <p className="px-6 text-lg"><strong>Passenger:</strong> {booking.passengerName}</p>
-                            <p className="px-6 text-lg"><strong>Seat:</strong> {booking.seatNumber}</p>
-                            <p className="px-6 text-lg"><strong>Departure:</strong> {booking.departure}</p>
-                            <p className="px-6 text-lg"><strong>Arrival:</strong> {booking.arrival}</p>
-                            <p className="px-6 text-lg"><strong>Status:</strong> <span className={`font-bold ${booking.status === "Confirmed" ? "text-green-600" : "text-red-600"}`}>{booking.status}</span></p>
+<div className="bg-gradient-to-br from-blue-100">
+  <div className="py-6 text-2xl text-center">
+    <strong>Booking Reference:</strong> {booking.bookingReference}
+  </div>
+  <p className="px-6 text-lg"><strong>Flight:</strong> {booking.flightNumber}</p>
+  <p className="px-6 text-lg"><strong>Passenger:</strong> {booking.passengerName}</p>
+  <p className="px-6 text-lg"><strong>Seat:</strong> {booking.seatNumber}</p>
+  <p className="px-6 text-lg"><strong>Departure:</strong> {booking.departure}</p>
+  <p className="px-6 text-lg"><strong>Arrival:</strong> {booking.arrival}</p>
+  <p className="px-6 text-lg">
+    <strong>Status:</strong> <span className={`font-bold ${booking.status === "Confirmed" ? "text-green-600" : "text-red-600"}`}>{booking.status}</span>
+  </p>
 </div>
+
                             <div className="mt-4 flex gap-3">
                            
 

@@ -106,7 +106,7 @@ const Reports = () => {
   const [sales, setSales] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const API = "http://localhost:5000"; // or use your hosted domain
+  const API = "https://flightticket-booking-node-allapi.onrender.com"; // or use your hosted domain
 
   useEffect(() => {
     axios.get(`${API}/api/reports/trends`)
