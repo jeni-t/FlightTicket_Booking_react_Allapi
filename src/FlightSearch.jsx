@@ -401,7 +401,7 @@ const searchFlights = async () => {
       params.travelClass = travelClass;
     }
 
-    const response = await axios.get("http://localhost:5000/api/airlines/flights", {
+    const response = await axios.get("https://flightticket-booking-node-allapi.onrender.com/api/airlines/flights", {
       params
     });
 
@@ -416,7 +416,7 @@ const searchFlights = async () => {
     try {
       const amount = parseFloat(selectedFlight.price.total) * 100;
 
-      const response = await axios.post("http://localhost:5000/api/payment/stripe", {
+      const response = await axios.post("https://flightticket-booking-node-allapi.onrender.com/api/payment/stripe", {
         amount,
         currency: "USD",
         email: "user@example.com",
@@ -439,7 +439,7 @@ const searchFlights = async () => {
 
   const handleBooking = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/book-flight", {
+      const response = await axios.post("https://flightticket-booking-node-allapi.onrender.com/api/book-flight", {
         flightNumber: selectedFlight.id,
         passengerName: `${passengers[0].firstName} ${passengers[0].lastName}`, // ✅ Fixed passengerName format
         seatNumber: seatPreference,
@@ -460,7 +460,7 @@ const searchFlights = async () => {
   
   const fetchFlights = async () => {
     try {
-        const response = await axios.get("http://localhost:5000/api/flights", {
+        const response = await axios.get("https://flightticket-booking-node-allapi.onrender.com/api/flights", {
             params: { origin, destination, date }
         });
         setFlights(response.data);
@@ -470,7 +470,7 @@ const searchFlights = async () => {
 };
 
 useEffect(() => {
-  axios.get("http://localhost:5000/api/flights") // ✅ Ensure correct API URL
+  axios.get("https://flightticket-booking-node-allapi.onrender.com/api/flights") // ✅ Ensure correct API URL
       .then(response => {
           console.log("Flights Data:", response.data); // ✅ Debugging output
           setFlights(response.data);
@@ -482,7 +482,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (originQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${originQuery}`)
+    axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airports?query=${originQuery}`)
       .then(res => setOriginSuggestions(res.data))
       .catch(err => console.error("Origin airport error", err));
   }
@@ -490,7 +490,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (destinationQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${destinationQuery}`)
+    axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airports?query=${destinationQuery}`)
       .then(res => setDestinationSuggestions(res.data))
       .catch(err => console.error("Destination airport error", err));
   }
