@@ -178,7 +178,7 @@ const CheckoutForm = ({ bookingId }) => {
 
     try {
       // ✅ Step 1: Create Payment Intent
-      const response = await fetch("http://localhost:5000/create-payment-intent", {
+      const response = await fetch("https://flightticket-booking-node-allapi.onrender.com/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -213,7 +213,7 @@ const CheckoutForm = ({ bookingId }) => {
       }
 
       // ✅ Step 3: Confirm Booking
-      const bookingResponse = await fetch("http://localhost:5000/confirm-booking", {
+      const bookingResponse = await fetch("https://flightticket-booking-node-allapi.onrender.com/confirm-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

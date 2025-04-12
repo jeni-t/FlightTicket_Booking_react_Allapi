@@ -106,29 +106,29 @@ const Reports = () => {
   const [sales, setSales] = useState([]);
   const [users, setUsers] = useState([]);
 
+  const API = "http://localhost:5000"; // or use your hosted domain
+
   useEffect(() => {
-    axios.get("/api/reports/sales")
-    .then(res => {
-      console.log("Sales data response:", res.data);
-      setSales(Array.isArray(res.data) ? res.data : []);
-    })
-    .catch(err => console.error("Sales API error", err));
+    axios.get(`${API}/api/reports/trends`)
+      .then(res => {
+        console.log("📈 Trends:", res.data);
+        setTrends(res.data);
+      });
   
-  axios.get("/api/reports/trends")
-    .then(res => {
-      console.log("Trends data response:", res.data);
-      setTrends(Array.isArray(res.data) ? res.data : []);
-    })
-    .catch(err => console.error("Trends API error", err));
+    axios.get(`${API}/api/reports/sales`)
+      .then(res => {
+        console.log("💰 Sales:", res.data);
+        setSales(res.data);
+      });
   
-  axios.get("/api/reports/users")
-    .then(res => {
-      console.log("Users data response:", res.data);
-      setUsers(Array.isArray(res.data) ? res.data : []);
-    })
-    .catch(err => console.error("Users API error", err));
-  
+    axios.get(`${API}/api/reports/users`)
+      .then(res => {
+        console.log("👤 Users:", res.data);
+        setUsers(res.data);
+      });
   }, []);
+  
+  
 
   return (
     <div className="p-8 max-w-6xl mx-auto">

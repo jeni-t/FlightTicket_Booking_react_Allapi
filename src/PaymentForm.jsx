@@ -622,7 +622,7 @@ const CheckoutForms = ({ bookingId }) => {
     } else if (paymentIntent?.status === "succeeded") {
       setMessage("✅ Payment successful!");
 
-      await axios.post("http://localhost:5000/api/payments/confirm", {
+      await axios.post("https://flightticket-booking-node-allapi.onrender.com/api/payments/confirm", {
         paymentIntentId: paymentIntent.id,
       });
 

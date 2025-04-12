@@ -78,7 +78,7 @@ const UserPreferences = () => {
 
     const fetchPrefs = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
+        const res = await axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/users/${userId}`);
         const prefs = res.data.preferences || {};
         setForm({
           preferredAirline: prefs.preferredAirline || "",
@@ -109,7 +109,7 @@ const UserPreferences = () => {
     }
 
     try {
-      const res = await axios.put(`http://localhost:5000/api/users/preferences/${userId}`, form);
+      const res = await axios.put(`https://flightticket-booking-node-allapi.onrender.com/api/users/preferences/${userId}`, form);
       setMessage("✅ Preferences updated!");
     } catch (err) {
       console.error("❌ Error updating preferences:", err);
@@ -121,7 +121,7 @@ const UserPreferences = () => {
   if (loading) return <p className="text-center">Loading preferences...</p>;
 
   return (
-    <div className="max-w-xl mx-auto bg-white shadow-lg p-6 rounded-lg mt-6">
+    <div className="max-w-xl mx-auto bg-white shadow-lg p-6 bg-gradient-to-br from-blue-100 to-white rounded-lg mt-6">
       <h2 className="text-2xl font-bold mb-4">User Preferences</h2>
 
       {message && <p className="mb-4 text-center text-blue-600 font-medium">{message}</p>}

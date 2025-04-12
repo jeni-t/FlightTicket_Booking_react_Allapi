@@ -62,7 +62,7 @@ const searchFlights = async () => {
       params.travelClass = travelClass;
     }
 
-    const response = await axios.get("http://localhost:5000/api/airlines/flights", {
+    const response = await axios.get("https://flightticket-booking-node-allapi.onrender.com/api/airlines/flights", {
       params
     });
 
@@ -77,7 +77,7 @@ const searchFlights = async () => {
     try {
       const amount = parseFloat(selectedFlight.price.total) * 100;
 
-      const response = await axios.post("http://localhost:5000/api/payment/stripe", {
+      const response = await axios.post("https://flightticket-booking-node-allapi.onrender.com/api/payment/stripe", {
         amount,
         currency: "USD",
         email: "user@example.com",
@@ -100,7 +100,7 @@ const searchFlights = async () => {
 
   const handleBooking = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/book-flight", {
+      const response = await axios.post("https://flightticket-booking-node-allapi.onrender.com/api/book-flight", {
         flightNumber: selectedFlight.id,
         passengerName: `${passengers[0].firstName} ${passengers[0].lastName}`, // ✅ Fixed passengerName format
         seatNumber: seatPreference,
@@ -121,7 +121,7 @@ const searchFlights = async () => {
   
   const fetchFlights = async () => {
     try {
-        const response = await axios.get("http://localhost:5000/api/flights", {
+        const response = await axios.get("https://flightticket-booking-node-allapi.onrender.com/api/flights", {
             params: { origin, destination, date }
         });
         setFlights(response.data);
@@ -131,7 +131,7 @@ const searchFlights = async () => {
 };
 
 useEffect(() => {
-  axios.get("http://localhost:5000/api/flights") // ✅ Ensure correct API URL
+  axios.get("https://flightticket-booking-node-allapi.onrender.com/api/flights") // ✅ Ensure correct API URL
       .then(response => {
           console.log("Flights Data:", response.data); // ✅ Debugging output
           setFlights(response.data);
@@ -143,7 +143,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (originQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${originQuery}`)
+    axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airports?query=${originQuery}`)
       .then(res => setOriginSuggestions(res.data))
       .catch(err => console.error("Origin airport error", err));
   }
@@ -151,7 +151,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (destinationQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${destinationQuery}`)
+    axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airports?query=${destinationQuery}`)
       .then(res => setDestinationSuggestions(res.data))
       .catch(err => console.error("Destination airport error", err));
   }
@@ -170,9 +170,10 @@ const handleSelectOrigin = (code) => {
       <div className="absolute inset-0 bg-blak bg-opacity-40">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-opacity-80 p-6 rounded-lg shadow-lg w-full max-w-2xl">
-          <h2 className="text-center text-xl font-bold text-gray-700 mb-4">Search Flights</h2>
+          <h2 className="text-center text-xl font-bold text-gray-900 mb-4">Search Flights</h2>
           <div className="grid grid-cols-2 gap-4">
           <input
+          className="p-2 border-2 rounded"
   type="text"
   placeholder="From"
   value={originQuery}
@@ -198,6 +199,7 @@ const handleSelectOrigin = (code) => {
 
 
 <input
+className="p-2 border-2 rounded"
   type="text"
   placeholder="To"
   value={destinationQuery}
@@ -222,16 +224,16 @@ const handleSelectOrigin = (code) => {
 </ul>
 
 
-            <input className="p-2 border rounded" type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
-            <input className="p-2 border rounded" type="number" min="1" value={adults} onChange={(e) => setAdults(e.target.value)} placeholder="Adults" />
-            <select className="p-2 border rounded col-span-2" value={travelClass} onChange={(e) => setTravelClass(e.target.value)}>
+            <input className="p-2 border-2 rounded" type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
+            <input className="p-2 border-2 rounded" type="number" min="1" value={adults} onChange={(e) => setAdults(e.target.value)} placeholder="Adults" />
+            <select className="p-2 border-2 rounded col-span-2" value={travelClass} onChange={(e) => setTravelClass(e.target.value)}>
               <option value="Any">Any</option>
               <option value="Economy">Economy</option>
               <option value="Business">Business</option>
               <option value="First Class">First Class</option>
             </select>
           </div>
-          <button className="mt-4 w-full bg-red-500 text-white p-2 rounded text-lg" onClick={searchFlights}>Show Flights</button>
+          <button className="mt-4 w-full bg-blue-900 text-white p-2 rounded text-lg" onClick={searchFlights}>Show Flights</button>
         </div>
       </div>
       </div>

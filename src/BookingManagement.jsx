@@ -233,7 +233,7 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/bookings");
+                const response = await axios.get("https://flightticket-booking-node-allapi.onrender.com/api/bookings");
                 if (response.data.length > 0) {
                     setBookings(response.data);
                 }
@@ -251,7 +251,7 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     const cancelBooking = async (bookingId) => {
         if (!bookingId) return alert("Error: Booking ID is missing.");
         try {
-            await axios.delete(`http://localhost:5000/api/bookings/${bookingId}`);
+            await axios.delete(`https://flightticket-booking-node-allapi.onrender.com/api/bookings/${bookingId}`);
             setBookings(bookings.filter(booking => booking._id !== bookingId));
             alert("✅ Booking canceled successfully!");
         } catch (error) {
@@ -279,7 +279,7 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     // Update booking
     const updateBooking = async (bookingId) => {
         try {
-            await axios.put(`http://localhost:5000/api/bookings/${bookingId}`, updatedDetails);
+            await axios.put(`https://flightticket-booking-node-allapi.onrender.com/api/bookings/${bookingId}`, updatedDetails);
             setEditingBooking(null); // Close the edit form
             alert("✅ Booking updated successfully!");
             window.location.reload(); // Refresh to show updated booking
@@ -359,10 +359,10 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     };
 
     return (
-        <div className="relative min-h-screen bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/images/flight-bg.jpg')" }}>
-            <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="relative min-h-screen bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/booking-image.jpg')" }}>
+            <div className="absolute inset-0 bg-opacity-50"></div>
 
-            <div className="relative max-w-4xl w-full mx-auto p-6 bg-white bg-opacity-90 shadow-lg rounded-lg mt-10 z-10">
+            <div className="relative max-w-xl w-full mx-auto p-6 bg-opacity-20 shadow-lg rounded-lg mt-10 z-10">
                 {success && (
                     <p className="bg-green-200 text-green-800 p-3 rounded mb-4">
                         ✅ Payment successful for Booking ID: {bookingId}
@@ -378,17 +378,18 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
                 ) : (
                     bookings.map((booking, index) => (
                         <div key={booking._id || index}  id={`booking-${booking._id}`}
-  style={{
-    backgroundColor: "#fff",
-    color: "#000",
-  }}
+                        
+                        // style={{ backgroundImage: "url('/booking.jpg')" }}
 >
-                            <p><strong>Booking Reference:</strong> {booking.bookingReference}</p>
-                            <p><strong>Flight:</strong> {booking.flightNumber}</p>
-                            <p><strong>Passenger:</strong> {booking.passengerName}</p>
-                            <p><strong>Seat:</strong> {booking.seatNumber}</p>
-                            <p><strong>Status:</strong> <span className={`font-bold ${booking.status === "Confirmed" ? "text-green-600" : "text-red-600"}`}>{booking.status}</span></p>
-
+    <div className="bg-gradient-to-br from-blue-100">
+                            <p className="py-6 text-2xl"><strong><center>Booking Reference:</center></strong> {booking.bookingReference}</p>
+                            <p className="px-6 text-lg"><strong>Flight:</strong> {booking.flightNumber}</p>
+                            <p className="px-6 text-lg"><strong>Passenger:</strong> {booking.passengerName}</p>
+                            <p className="px-6 text-lg"><strong>Seat:</strong> {booking.seatNumber}</p>
+                            <p className="px-6 text-lg"><strong>Departure:</strong> {booking.departure}</p>
+                            <p className="px-6 text-lg"><strong>Arrival:</strong> {booking.arrival}</p>
+                            <p className="px-6 text-lg"><strong>Status:</strong> <span className={`font-bold ${booking.status === "Confirmed" ? "text-green-600" : "text-red-600"}`}>{booking.status}</span></p>
+</div>
                             <div className="mt-4 flex gap-3">
                            
 
@@ -441,16 +442,16 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
                             <div className="mt-4 flex gap-3">
                             <button 
     onClick={() => handleEditBooking(booking)}
-    className="bg-yellow-500 text-white px-4 py-2 rounded">
+    className="bg-blue-900 text-white px-4 py-2 rounded">
     Update Booking
 </button>
-                                <button onClick={() => cancelBooking(booking._id)} className="px-4 py-2 bg-red-500 text-white rounded shadow-md hover:bg-red-700 transition">
+                                <button onClick={() => cancelBooking(booking._id)} className="px-4 py-2 bg-blue-900 text-white rounded shadow-md hover:bg-red-700 transition">
                                     Cancel Booking
                                 </button>
-                                <button onClick={() => handleDownloadPDF(booking._id)} className="px-4 py-2 bg-blue-500 text-white rounded shadow-md hover:bg-blue-700 transition">
+                                <button onClick={() => handleDownloadPDF(booking._id)} className="px-4 py-2 bg-blue-900 text-white rounded shadow-md hover:bg-blue-700 transition">
                                     Download PDF
                                 </button>
-                                <button onClick={() => printBooking(booking)} className="px-4 py-2 bg-green-500 text-white rounded shadow-md hover:bg-green-700 transition">
+                                <button onClick={() => printBooking(booking)} className="px-4 py-2 bg-blue-900 text-white rounded shadow-md hover:bg-green-700 transition">
                                     Print
                                 </button>
                             </div>

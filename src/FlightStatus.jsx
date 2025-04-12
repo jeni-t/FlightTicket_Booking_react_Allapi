@@ -290,7 +290,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://flightticket-booking-node-allapi.onrender.com");
 
 const FlightStatus = () => {
   const [origin, setOrigin] = useState("");
@@ -303,7 +303,7 @@ const FlightStatus = () => {
     try {
       setError("");
       const res = await axios.get(
-        `http://localhost:5000/api/flight-status/place/${origin}/${destination}/${date}`
+        `https://flightticket-booking-node-allapi.onrender.com/api/flight-status/place/${origin}/${destination}/${date}`
       );
       setFlightStatus(res.data);
     } catch (err) {

@@ -19,7 +19,7 @@ const SeatMap = ({ flightOfferId }) => {
 
     const fetchSeatMap = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/airlines/seat-map/${flightId}`);
+            const response = await axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airlines/seat-map/${flightId}`);
             setSeats(response.data);
         } catch (error) {
             console.error("❌ Error fetching seats:", error);
@@ -34,7 +34,7 @@ const SeatMap = ({ flightOfferId }) => {
 
   const fetchSeats = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/airlines/seat-map/${flightOfferId}`);
+      const response = await axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/airlines/seat-map/${flightOfferId}`);
       setSeats(response.data);
     } catch (error) {
       console.error("❌ Error fetching seats:", error);
