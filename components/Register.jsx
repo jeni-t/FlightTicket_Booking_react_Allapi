@@ -60,7 +60,7 @@ const Register = () => {
 
     return (
         <div>
-        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/register-images.jpg')"}}>
+        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://t4.ftcdn.net/jpg/11/90/96/89/360_F_1190968902_G2EHiiu0rkRbTdZHQxRZ9Kk2EoHizyCD.jpg')"}}>
             <form onSubmit={handleSubmit} className="bg-opacity-40 p-8 rounded-2xl shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold text-center text-blue-900 mb-6">Create an Account</h2>
 
