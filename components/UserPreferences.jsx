@@ -53,6 +53,126 @@
 
 // export default UserPreferences;
 
+// import React, { useEffect, useState, useContext } from "react";
+// import axios from "axios";
+// import { AuthContext } from "../context/AuthContext";
+
+// const UserPreferences = () => {
+//   const { currentUser } = useContext(AuthContext);
+//   const [form, setForm] = useState({
+//     preferredAirline: "",
+//     seatPreference: "",
+//     mealPreference: "",
+//   });
+//   const [loading, setLoading] = useState(true);
+//   const [message, setMessage] = useState("");
+
+//   useEffect(() => {
+//     if (!currentUser) return;
+
+//     const userId = currentUser?._id || currentUser?.id;
+//     if (!userId) {
+//       setMessage("❌ User not logged in.");
+//       return;
+//     }
+
+//     const fetchPrefs = async () => {
+//       try {
+//         const res = await axios.get(`https://flightticket-booking-node-allapi.onrender.com/api/users/${userId}`);
+//         const prefs = res.data.preferences || {};
+//         setForm({
+//           preferredAirline: prefs.preferredAirline || "",
+//           seatPreference: prefs.seatPreference || "",
+//           mealPreference: prefs.mealPreference || "",
+//         });
+//       } catch (err) {
+//         console.error("❌ Error fetching preferences:", err);
+//         setMessage("Failed to load preferences");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchPrefs();
+//   }, [currentUser]);
+
+//   const handleChange = (e) => {
+//     setForm({ ...form, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const userId = currentUser?._id || currentUser?.id;
+//     if (!userId) {
+//       setMessage("❌ User ID missing.");
+//       return;
+//     }
+  
+//     try {
+//       const res = await axios.put(`https://flightticket-booking-node-allapi.onrender.com/api/users/${userId}/preferences`, form);
+//       setMessage("✅ Preferences updated!");
+//     } catch (err) {
+//       console.error("❌ Error updating preferences:", err);
+//       setMessage("Failed to update preferences.");
+//     }
+//   };
+  
+
+//   if (!currentUser) return <p className="text-center">🔐 Please login to view preferences.</p>;
+//   if (loading) return <p className="text-center">Loading preferences...</p>;
+
+//   return (
+//     <div className="max-w-xl mx-auto bg-white shadow-lg p-6 bg-gradient-to-br from-blue-100 to-white rounded-lg mt-6">
+//       <h2 className="text-2xl font-bold mb-4">User Preferences</h2>
+
+//       {message && <p className="mb-4 text-center text-blue-600 font-medium">{message}</p>}
+
+//       <form onSubmit={handleSubmit} className="space-y-4">
+//         <input
+//           type="text"
+//           name="preferredAirline"
+//           value={form.preferredAirline}
+//           onChange={handleChange}
+//           placeholder="Preferred Airline"
+//           className="w-full border p-2 rounded"
+//         />
+
+//         <select
+//           name="seatPreference"
+//           value={form.seatPreference}
+//           onChange={handleChange}
+//           className="w-full border p-2 rounded"
+//         >
+//           <option value="">Select Seat Preference</option>
+//           <option value="Window">Window</option>
+//           <option value="Aisle">Aisle</option>
+//         </select>
+
+//         <select
+//           name="mealPreference"
+//           value={form.mealPreference}
+//           onChange={handleChange}
+//           className="w-full border p-2 rounded"
+//         >
+//           <option value="">Select Meal Preference</option>
+//           <option value="Vegetarian">Vegetarian</option>
+//           <option value="Non-Veg">Non-Veg</option>
+//         </select>
+
+//         <button
+//           type="submit"
+//           className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+//         >
+//           Save Preferences
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default UserPreferences;
+
+
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
@@ -107,15 +227,16 @@ const UserPreferences = () => {
       setMessage("❌ User ID missing.");
       return;
     }
-
+  
     try {
-      const res = await axios.put(`https://flightticket-booking-node-allapi.onrender.com/api/users/preferences/${userId}`, form);
+      const res = await axios.put(`https://flightticket-booking-node-allapi.onrender.com/api/users/${userId}/preferences`, form);
       setMessage("✅ Preferences updated!");
     } catch (err) {
       console.error("❌ Error updating preferences:", err);
       setMessage("Failed to update preferences.");
     }
   };
+  
 
   if (!currentUser) return <p className="text-center">🔐 Please login to view preferences.</p>;
   if (loading) return <p className="text-center">Loading preferences...</p>;

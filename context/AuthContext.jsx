@@ -87,6 +87,19 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
     
+    const register = async (userData) => { 
+        try {
+            console.log("Sending user data:", userData);
+            const res = await axios.post('https://flightticket-booking-node-allapi.onrender.com/api/auth/register', userData, {
+                headers: { "Content-Type": "application/json" }
+            });
+            console.log("Registration successful:", res.data);
+            return res.data;
+        } catch (error) {
+            console.error("Registration error:", error.response ? error.response.data : error.message);
+            throw error;
+        }
+    };
 
     const login = async (email, password) => {
         try {
@@ -107,7 +120,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ currentUser, login, logout }}>
+        <AuthContext.Provider value={{ currentUser, register, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
