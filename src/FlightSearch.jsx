@@ -166,7 +166,7 @@ const handleSelectOrigin = (code) => {
 
   return (
     <div>
-       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/flight-ticket-fare.jpg')"}}>
+       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/flight-ticket-fare.jpg')"}}>
       <div className="absolute inset-0 bg-blak bg-opacity-40">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-opacity-80 p-6 rounded-lg shadow-lg w-full max-w-2xl">
@@ -269,7 +269,7 @@ className="p-2 border-2 rounded"
 {selectedFlight && (
     <div className="relative mt-4">
         {/* Background Image with Opacity */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/image-flight.jpeg')" }}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/image/image-flight.jpeg')" }}></div>
 
         {/* Booking Form Container */}
         <div className="relative z-10 bg-opacity-80 p-6 rounded-lg shadow-lg max-w-lg mx-auto">

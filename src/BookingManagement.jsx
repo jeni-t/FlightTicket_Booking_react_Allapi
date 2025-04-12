@@ -359,7 +359,7 @@ const [updatedDetails, setUpdatedDetails] = useState({ passengerName: "", seatNu
     };
 
     return (
-        <div className="relative min-h-screen bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/booking-image.jpg')" }}>
+        <div className="relative min-h-screen bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/image/booking-image.jpg')" }}>
             <div className="absolute inset-0 bg-opacity-50"></div>
 
             <div className="relative max-w-xl w-full mx-auto p-6 bg-opacity-20 shadow-lg rounded-lg mt-10 z-10">
