@@ -269,7 +269,7 @@ className="p-2 border-2 rounded"
 {selectedFlight && (
     <div className="relative mt-4">
         {/* Background Image with Opacity */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/image-flight.jpeg')" }}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://t4.ftcdn.net/jpg/11/90/96/89/360_F_1190968902_G2EHiiu0rkRbTdZHQxRZ9Kk2EoHizyCD.jpg')" }}></div>
 
         {/* Booking Form Container */}
         <div className="relative z-10 bg-opacity-80 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
