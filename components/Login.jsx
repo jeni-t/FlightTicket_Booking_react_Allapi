@@ -163,7 +163,7 @@ const Login = () => {
     };
     
     return (
-        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/login-image.jpg')"}}>
+        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/public/login-image.jpg')"}}>
             <form onSubmit={handleLogin} className="bg-opacity-40 shadow-xl rounded-2xl p-8 w-full max-w-sm">
                 <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600">Login to your Account</h2>
 
