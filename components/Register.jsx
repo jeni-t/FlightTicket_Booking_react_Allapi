@@ -60,7 +60,7 @@ const Register = () => {
 
     return (
         <div>
-        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/register-images.jpg')"}}>
+        <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://png.pngtree.com/thumb_back/fh260/background/20230706/pngtree-d-illustration-of-airline-booking-app-for-buying-tickets-or-checking-image_3792552.jpg')"}}>
             <form onSubmit={handleSubmit} className="bg-opacity-40 p-8 rounded-2xl shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold text-center text-blue-900 mb-6">Create an Account</h2>
 
