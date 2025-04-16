@@ -482,7 +482,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (originQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${originQuery}`)
+    axios.get(`https://flightticket-booking-node.onrender.com/api/airports?query=${originQuery}`)
       .then(res => setOriginSuggestions(res.data))
       .catch(err => console.error("Origin airport error", err));
   }
@@ -490,7 +490,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (destinationQuery.length > 2) {
-    axios.get(`http://localhost:5000/api/airports?query=${destinationQuery}`)
+    axios.get(`https://flightticket-booking-node.onrender.com/api/airports?query=${destinationQuery}`)
       .then(res => setDestinationSuggestions(res.data))
       .catch(err => console.error("Destination airport error", err));
   }
@@ -505,67 +505,89 @@ const handleSelectOrigin = (code) => {
 
   return (
     <div>
-       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/flight-ticket-fare.jpg')"}}>
+       <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://blog.air.irctc.co.in/wp-content/uploads/2021/03/flight-ticket-fare.jpg')"}}>
       <div className="absolute inset-0 bg-blak bg-opacity-40">
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-opacity-80 p-6 rounded-lg shadow-lg w-full max-w-2xl">
           <h2 className="text-center text-xl font-bold text-gray-900 mb-4">Search Flights</h2>
           <div className="grid grid-cols-2 gap-4">
-          <input
-  type="text"
-   className="p-2 border-2"
-  placeholder="From"
-  value={originQuery}
-  onChange={(e) => {
-    setOriginQuery(e.target.value);
-    // fetch originSuggestions here
-  }}
-/>
-<ul>
-  {originSuggestions.map((airport) => (
-    <li
-      key={airport.iataCode}
-      onClick={() => {
-        setOrigin(airport.iataCode);
-        setOriginQuery(`${airport.name} (${airport.iataCode})`);
-        setOriginSuggestions([]);
-      }}
-    >
-      {airport.name} ({airport.iataCode})
-    </li>
-  ))}
-</ul>
+<div
+  className="relative w-full"
+  onBlur={() => setTimeout(() => setOriginSuggestions([]), 150)}
+  tabIndex={0} // so onBlur triggers when clicking away
+>
+  <input
+    type="text"
+    className="p-2 bg-white border-2 w-full rounded-md"
+    placeholder="From"
+    value={originQuery}
+    onChange={(e) => {
+      setOriginQuery(e.target.value);
+      // fetch originSuggestions here
+    }}
+  />
+
+  {originSuggestions.length > 0 && (
+    <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto mt-1">
+      {originSuggestions.map((airport) => (
+        <li
+          key={airport.iataCode}
+          onClick={() => {
+            setOrigin(airport.iataCode);
+            setOriginQuery(`${airport.name} (${airport.iataCode})`);
+            setOriginSuggestions([]); // this closes it!
+          }}
+          className="p-2 hover:bg-blue-100 cursor-pointer transition"
+        >
+          {airport.name} ({airport.iataCode})
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
 
 
-<input
-  type="text"
-   className="p-2 border-2"
-  placeholder="To"
-  value={destinationQuery}
-  onChange={(e) => {
-    setDestinationQuery(e.target.value);
-    // fetch destinationSuggestions here
-  }}
-/>
-<ul>
-  {destinationSuggestions.map((airport) => (
-    <li
-      key={airport.iataCode}
-      onClick={() => {
-        setDestination(airport.iataCode);
-        setDestinationQuery(`${airport.name} (${airport.iataCode})`);
-        setDestinationSuggestions([]);
-      }}
-    >
-      {airport.name} ({airport.iataCode})
-    </li>
-  ))}
-</ul>
+<div
+  className="relative w-full"
+  onBlur={() => setTimeout(() => setDestinationSuggestions([]), 150)}
+  tabIndex={0}
+>
+  <input
+    type="text"
+    className="p-2 bg-white border-2 w-full rounded-md"
+    placeholder="To"
+    value={destinationQuery}
+    onChange={(e) => {
+      setDestinationQuery(e.target.value);
+      // fetch destinationSuggestions here
+    }}
+  />
+
+  {destinationSuggestions.length > 0 && (
+    <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-md max-h-60 overflow-y-auto mt-1">
+      {destinationSuggestions.map((airport) => (
+        <li
+          key={airport.iataCode}
+          onClick={() => {
+            setDestination(airport.iataCode);
+            setDestinationQuery(`${airport.name} (${airport.iataCode})`);
+            setDestinationSuggestions([]);
+          }}
+          className="p-2 hover:bg-blue-100 cursor-pointer transition"
+        >
+          {airport.name} ({airport.iataCode})
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
 
 
-            <input className="p-2 border-2 rounded" type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
-            <input className="p-2 border-2 rounded" type="number" min="1" value={adults} onChange={(e) => setAdults(e.target.value)} placeholder="Adults" />
-            <select className="p-2 border-2 rounded col-span-2" value={travelClass} onChange={(e) => setTravelClass(e.target.value)}>
+
+
+            <input className="p-2 bg-white border-2 rounded" type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
+            <input className="p-2 bg-white border-2 rounded" type="number" min="1" value={adults} onChange={(e) => setAdults(e.target.value)} placeholder="Adults" />
+            <select className="p-2 bg-white border-2 rounded col-span-2" value={travelClass} onChange={(e) => setTravelClass(e.target.value)}>
               <option value="Any">Any</option>
               <option value="Economy">Economy</option>
               <option value="Business">Business</option>
@@ -608,7 +630,7 @@ const handleSelectOrigin = (code) => {
 {selectedFlight && (
     <div className="relative mt-4">
         {/* Background Image with Opacity */}
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/image-flight.jpeg')" }}></div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://t4.ftcdn.net/jpg/11/90/96/89/360_F_1190968902_G2EHiiu0rkRbTdZHQxRZ9Kk2EoHizyCD.jpg')" }}></div>
 
         {/* Booking Form Container */}
         <div className="relative z-10 bg-opacity-80 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
