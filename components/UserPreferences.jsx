@@ -176,6 +176,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const UserPreferences = () => {
   const { currentUser } = useContext(AuthContext);
@@ -238,7 +239,11 @@ const UserPreferences = () => {
   };
   
 
-  if (!currentUser) return <p className="text-center">🔐 Please login to view preferences.</p>;
+  if (!currentUser) return (<p className="text-center">🔐 Please login to view preferences.<br></br>
+    <Link to="/login" className="text-2xl font-bold text-blue-900 hover:underline">Login</Link>
+    </p>
+  );
+  
   if (loading) return <p className="text-center">Loading preferences...</p>;
 
   return (
